@@ -19,7 +19,6 @@ public class HelloTVXlet implements Xlet, HActionListener {
 
     private HScene scene;
     private HStaticText tekstLabel;
-    HStaticText tekst2 = new HStaticText("Juist",100, 400, 550, 100);
     HTextButton knop1 = new HTextButton("3", 100,250,100,100);
     HTextButton knop2 = new HTextButton("5", 250,250,100,100);
     HTextButton knop3 = new HTextButton("0", 400,250,100,100);
@@ -32,7 +31,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
       tekst1.setBackgroundMode(HVisible.BACKGROUND_FILL);
       tekst1.setBackground(new DVBColor(168, 234, 226, 255));
       tekst1.setForeground(new DVBColor(0, 0, 0, 255));
-      scene.add(tekst1);      
+      scene.add(tekst1);
       
       HTextButton knop1=new HTextButton("Informatie en Contact",100,150,300,50);
       knop1.setBackgroundMode(HVisible.BACKGROUND_FILL);
@@ -85,30 +84,19 @@ public class HelloTVXlet implements Xlet, HActionListener {
     public void actionPerformed(ActionEvent arg0) {
         System.out.println(arg0.getActionCommand());
         
-        
-        if(arg0.getActionCommand().equals("help"))
-        {
-          scene.remove(knop1);
-          scene.remove(knop3);
-          knop2.setFocusTraversal(null, null, knop4, knop4);
-          knop4.setFocusTraversal(null, null, knop2, knop2);
-          scene.repaint();
-          return;
-        }
-        
         if(arg0.getActionCommand().equals("Juist"))
         {    
-          tekst2.setBackgroundMode(HVisible.BACKGROUND_FILL);
-          tekst2.setTextContent("Juist", HVisible.NORMAL_STATE);
-          tekst2.setBackground(Color.GREEN);
-          scene.add(tekst2);
-          scene.repaint();
+            scene.remove(knop1);
+            scene.remove(knop2);
+            scene.remove(knop3);
+            scene.remove(knop4);
+            scene.repaint();
         }
         else{
-          tekst2.setBackgroundMode(HVisible.BACKGROUND_FILL);
-          tekst2.setTextContent("Fout", HVisible.NORMAL_STATE);
-          tekst2.setBackground(Color.RED);
-          scene.add(tekst2);
+          scene.remove(knop1);
+          scene.remove(knop2);
+          scene.remove(knop3);
+          scene.remove(knop4);
           scene.repaint();
         }
        
