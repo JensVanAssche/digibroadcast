@@ -32,7 +32,7 @@ import org.havi.ui.event.HBackgroundImageEvent;
 import org.havi.ui.event.HBackgroundImageListener;
 
 
-public class HelloTVXlet implements Xlet{
+public class exam implements Xlet{
 
     private HScene scene;
     private HStaticText tekstLabel;
