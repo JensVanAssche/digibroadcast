@@ -3,20 +3,28 @@ package hellotvxlet;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.tv.xlet.*;
+import org.davic.resources.ResourceClient;
+import org.davic.resources.ResourceProxy;
 import org.dvb.ui.DVBColor;
+import org.havi.ui.HBackgroundConfigTemplate;
+import org.havi.ui.HBackgroundDevice;
+import org.havi.ui.HBackgroundImage;
 import org.havi.ui.HScene;
 import org.havi.ui.HSceneFactory;
 import org.havi.ui.HSceneTemplate;
+import org.havi.ui.HScreen;
 import org.havi.ui.HScreenDimension;
 import org.havi.ui.HScreenPoint;
 import org.havi.ui.HStaticText;
+import org.havi.ui.HStillImageBackgroundConfiguration;
 import org.havi.ui.HTextButton;
 import org.havi.ui.HVisible;
 import org.havi.ui.event.HActionListener;
+import org.havi.ui.event.HBackgroundImageEvent;
+import org.havi.ui.event.HBackgroundImageListener;
 
 
-public class HelloTVXlet implements Xlet, HActionListener {
-
+public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListener, ResourceClient {
     private HScene scene;
     private HStaticText tekstLabel;
     HTextButton knop1 = new HTextButton("3", 100,250,100,100);
@@ -24,7 +32,28 @@ public class HelloTVXlet implements Xlet, HActionListener {
     HTextButton knop3 = new HTextButton("0", 400,250,100,100);
     HTextButton knop4 = new HTextButton("2", 550,250,100,100);
     
+    HBackgroundImage image = new HBackgroundImage("pizza1.m2v");
+    HStillImageBackgroundConfiguration hsbconfig;
+    
     public void initXlet(XletContext context) {
+      HScreen screen=HScreen.getDefaultHScreen();
+      HBackgroundDevice hbgDev=screen.getDefaultHBackgroundDevice();
+      if (hbgDev.reserveDevice(this))
+      {
+          System.out.println("Achtergrond device succesvol geresereveerd");
+      }
+      HBackgroundConfigTemplate bgTemplate=new HBackgroundConfigTemplate();
+      bgTemplate.setPreference(HBackgroundConfigTemplate.STILL_IMAGE, HBackgroundConfigTemplate.REQUIRED);
+      hsbconfig=(HStillImageBackgroundConfiguration) hbgDev.getBestConfiguration(bgTemplate);
+    
+      try {
+         hbgDev.setBackgroundConfiguration(hsbconfig); 
+      } catch(Exception ex){
+          ex.printStackTrace();
+      } 
+      
+      image.load(this);
+      
       scene = HSceneFactory.getInstance().getDefaultHScene();
       
       HStaticText tekst1 = new HStaticText("Hotel Roomservice",100, 20, 550, 100);
@@ -64,13 +93,15 @@ public class HelloTVXlet implements Xlet, HActionListener {
       knop4.addHActionListener(this);
       
       knop1.requestFocus();        
+      
+      scene.validate();
+      scene.setVisible(true);
+      
     }
 
 
     
     public void startXlet() {
-        scene.validate();
-        scene.setVisible(true);
     }
 
     public void pauseXlet() {
@@ -100,6 +131,31 @@ public class HelloTVXlet implements Xlet, HActionListener {
           scene.repaint();
         }
        
+    }
+
+    public void imageLoaded(HBackgroundImageEvent e) {
+        System.out.println("Image geladen");
+           try{
+            hsbconfig.displayImage(image);
+            }catch(Exception ex){
+                ex.printStackTrace();
+            } 
+    }
+
+    public void imageLoadFailed(HBackgroundImageEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean requestRelease(ResourceProxy proxy, Object requestData) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void release(ResourceProxy proxy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void notifyRelease(ResourceProxy proxy) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
