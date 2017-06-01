@@ -36,22 +36,27 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
     HStaticText tekst2 = new HStaticText("Welkom bij Hotel Erdogan \n \n De meeste kanalen zijn vergrendeld, \n maar het nieuws is nog beschikbaar. \n \n Bij problemen neem contact met ons op 089/456 789",50, 150, 620, 250);
     //Openingsuren
     HStaticText tekst3 = new HStaticText("Om 23u sluiten we de voordeur. \n Om binnen te geraken moet je aanbellen. \n \n Het zwembad is open van 08:00 - 18:00. \n Ontbijt kan vanaf 08:00 tot 11:00.",50, 150, 620, 200);
-    
-    HStaticText tekst4      = new HStaticText("eten €2,30",450, 150, 190, 50);
-    HStaticText teksteten1  = new HStaticText("0",520, 220, 50, 50);
-    HTextButton knopeten1   = new HTextButton("<",450, 220, 50, 50);
-    HTextButton knopeten2   = new HTextButton(">",590, 220, 50, 50);
-    HStaticText tekst5      = new HStaticText("drinken €1,70",450, 290, 190, 50);
-    HStaticText teksteten2  = new HStaticText("0",520, 360, 50, 50);
-    HTextButton knopeten3   = new HTextButton("<",450, 360, 50, 50);
-    HTextButton knopeten4   = new HTextButton(">",590, 360, 50, 50);
+    //Eten en drinken bestellen
+    int eten = 0;
+    int drinken = 0;
+    HStaticText tekstEten      = new HStaticText("eten €2,30",450, 150, 190, 50);
+    HStaticText tekstEtenHoeveelheid  = new HStaticText(Integer.toString(eten),520, 220, 50, 50);
+    HTextButton knopEtenMin   = new HTextButton("<",450, 220, 50, 50);
+    HTextButton knopEtenPlus   = new HTextButton(">",590, 220, 50, 50);
+    HStaticText tekstDrinken      = new HStaticText("drinken €1,70",450, 290, 190, 50);
+    HStaticText tekstDrinkenHoeveelheid  = new HStaticText(Integer.toString(drinken),520, 360, 50, 50);
+    HTextButton knopDrinkenMin   = new HTextButton("<",450, 360, 50, 50);
+    HTextButton knopDrinkenPlus   = new HTextButton(">",590, 360, 50, 50);
     HTextButton knopbestel  = new HTextButton("Bestel",540,500,100,50);
     HStaticText tekstbestel = new HStaticText("Bestelling geplaatst",370, 220, 300, 120);
-    
+    double prijs = 0;
+    double prijsDrinken = 1.70;
+    double prijsEten = 2.30;
+    //Kamermeid
     HTextButton knopkuis1 = new HTextButton("Schone lakens en handdoeken",370, 150, 300, 50);
     HTextButton knopkuis2 = new HTextButton("Minimale kuis",370, 220, 300, 50);
     HTextButton knopkuis3 = new HTextButton("Volledige kuis",370, 290, 300, 50);
-    
+    //Verander achtergrond
     HBackgroundImage image = new HBackgroundImage("pizza1.m2v");
     HStillImageBackgroundConfiguration hsbconfig;
     
@@ -107,10 +112,10 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
       knop3.setActionCommand("knop3");
       knop4.setActionCommand("knop4");
       knopterug.setActionCommand("knopterug");
-      knopeten1.setActionCommand("knopeten1");
-      knopeten2.setActionCommand("knopeten2");
-      knopeten3.setActionCommand("knopeten3");
-      knopeten4.setActionCommand("knopeten4");
+      knopEtenMin.setActionCommand("knopEtenMin");
+      knopEtenPlus.setActionCommand("knopEtenPlus");
+      knopDrinkenMin.setActionCommand("knopDrinkenMin");
+      knopDrinkenPlus.setActionCommand("knopDrinkenPlus");
       knopbestel.setActionCommand("knopbestel");
       knopkuis1.setActionCommand("knopkuis1");
       knopkuis2.setActionCommand("knopkuis2");
@@ -121,10 +126,10 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
       knop3.addHActionListener(this);
       knop4.addHActionListener(this);
       knopterug.addHActionListener(this);
-      knopeten1.addHActionListener(this);
-      knopeten2.addHActionListener(this);
-      knopeten3.addHActionListener(this);
-      knopeten4.addHActionListener(this);
+      knopEtenMin.addHActionListener(this);
+      knopEtenPlus.addHActionListener(this);
+      knopDrinkenMin.addHActionListener(this);
+      knopDrinkenPlus.addHActionListener(this);
       knopbestel.addHActionListener(this);
       knopkuis1.addHActionListener(this);
       knopkuis2.addHActionListener(this);
@@ -156,14 +161,14 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
             scene.remove(knop2);
             scene.remove(knop3);
             scene.remove(knop4);
-            scene.remove(tekst4);
-            scene.remove(teksteten1);
-            scene.remove(knopeten1);
-            scene.remove(knopeten2);
-            scene.remove(tekst5);
-            scene.remove(teksteten2);
-            scene.remove(knopeten3);
-            scene.remove(knopeten4);
+            scene.remove(tekstEten);
+            scene.remove(tekstEtenHoeveelheid);
+            scene.remove(knopEtenMin);
+            scene.remove(knopEtenPlus);
+            scene.remove(tekstDrinken);
+            scene.remove(tekstDrinkenHoeveelheid);
+            scene.remove(knopDrinkenMin);
+            scene.remove(knopDrinkenPlus);
             scene.remove(knopbestel);
             scene.remove(tekstbestel);
             scene.remove(knopkuis1);
@@ -188,14 +193,14 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
             scene.remove(knop2);
             scene.remove(knop3);
             scene.remove(knop4);
-            scene.remove(tekst4);
-            scene.remove(teksteten1);
-            scene.remove(knopeten1);
-            scene.remove(knopeten2);
-            scene.remove(tekst5);
-            scene.remove(teksteten2);
-            scene.remove(knopeten3);
-            scene.remove(knopeten4);
+            scene.remove(tekstEten);
+            scene.remove(tekstEtenHoeveelheid);
+            scene.remove(knopEtenMin);
+            scene.remove(knopEtenPlus);
+            scene.remove(tekstDrinken);
+            scene.remove(tekstDrinkenHoeveelheid);
+            scene.remove(knopDrinkenMin);
+            scene.remove(knopDrinkenPlus);
             scene.remove(knopbestel);
             scene.remove(tekstbestel);
             scene.remove(knopkuis1);
@@ -221,65 +226,92 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
             scene.remove(knopkuis2);
             scene.remove(knopkuis3);
             
-            tekst4.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            tekst4.setBackground(Color.BLUE);
-            scene.add(tekst4);
+            tekstEten.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstEten.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstEten.setForeground(new DVBColor(0, 0, 0, 255));
+            scene.add(tekstEten);
             
-            teksteten1.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            teksteten1.setBackground(Color.BLUE);
-            scene.add(teksteten1);
+            tekstEtenHoeveelheid.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstEtenHoeveelheid.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstEtenHoeveelheid.setForeground(new DVBColor(0, 0, 0, 255));
+            scene.add(tekstEtenHoeveelheid);
             
-            knopeten1.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            knopeten1.setBackground(Color.BLUE);
-            scene.add(knopeten1);
+            knopEtenMin.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            knopEtenMin.setBackground(Color.BLUE);
+            scene.add(knopEtenMin);
             
-            knopeten2.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            knopeten2.setBackground(Color.BLUE);
-            scene.add(knopeten2);
+            knopEtenPlus.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            knopEtenPlus.setBackground(Color.BLUE);
+            scene.add(knopEtenPlus);
             
-            tekst5.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            tekst5.setBackground(Color.BLUE);
-            scene.add(tekst5);
+            tekstDrinken.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstDrinken.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstDrinken.setForeground(new DVBColor(0, 0, 0, 255));
+            scene.add(tekstDrinken);
             
-            teksteten2.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            teksteten2.setBackground(Color.BLUE);
-            scene.add(teksteten2);
+            tekstDrinkenHoeveelheid.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstDrinkenHoeveelheid.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstDrinkenHoeveelheid.setForeground(new DVBColor(0, 0, 0, 255));
+            scene.add(tekstDrinkenHoeveelheid);
             
-            knopeten3.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            knopeten3.setBackground(Color.BLUE);
-            scene.add(knopeten3);
+            knopDrinkenMin.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            knopDrinkenMin.setBackground(Color.BLUE);
+            scene.add(knopDrinkenMin);
             
-            knopeten4.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            knopeten4.setBackground(Color.BLUE);
-            scene.add(knopeten4);
+            knopDrinkenPlus.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            knopDrinkenPlus.setBackground(Color.BLUE);
+            scene.add(knopDrinkenPlus);
             
             knopbestel.setBackgroundMode(HVisible.BACKGROUND_FILL);
             knopbestel.setBackground(Color.ORANGE);
             scene.add(knopbestel);
             
-            knopeten1.setFocusTraversal(null,knopeten3,knop1,knopeten2);
-            knopeten2.setFocusTraversal(null,knopeten4,knopeten1,null);
-            knopeten3.setFocusTraversal(knopeten1,knopbestel,knop1,knopeten4);
-            knopeten4.setFocusTraversal(knopeten2,knopbestel,knopeten3,null);
-            knopbestel.setFocusTraversal(knopeten4, null, knop1, null);
-            knop1.setFocusTraversal(knop4,knop2,null,knopeten1);
-            knop2.setFocusTraversal(knop1,knop3,null,knopeten1);
-            knop3.setFocusTraversal(knop2,knop4,null,knopeten1);
-            knop4.setFocusTraversal(knop3,knop1,null,knopeten1);
+            knopEtenMin.setFocusTraversal(null,knopDrinkenMin,knop1,knopEtenPlus);
+            knopEtenPlus.setFocusTraversal(null,knopDrinkenPlus,knopEtenMin,null);
+            knopDrinkenMin.setFocusTraversal(knopEtenMin,knopbestel,knop1,knopDrinkenPlus);
+            knopDrinkenPlus.setFocusTraversal(knopEtenPlus,knopbestel,knopDrinkenMin,null);
+            knopbestel.setFocusTraversal(knopDrinkenPlus, null, knop1, null);
+            knop1.setFocusTraversal(knop4,knop2,null,knopEtenMin);
+            knop2.setFocusTraversal(knop1,knop3,null,knopEtenMin);
+            knop3.setFocusTraversal(knop2,knop4,null,knopEtenMin);
+            knop4.setFocusTraversal(knop3,knop1,null,knopEtenMin);
             
-            knopeten1.requestFocus();
+            knopEtenMin.requestFocus();
             scene.repaint();
         }
-        
+        if(arg0.getActionCommand().equals("knopEtenMin")) {
+            if(eten > 0) {
+                eten--;
+                prijs -= prijsEten;
+            }
+            tekstEtenHoeveelheid.setTextContent(Integer.toString(eten), HVisible.NORMAL_STATE);
+        }
+        if(arg0.getActionCommand().equals("knopEtenPlus")) {
+            eten++;
+            prijs += prijsEten;
+            tekstEtenHoeveelheid.setTextContent(Integer.toString(eten), HVisible.NORMAL_STATE);
+        }
+        if(arg0.getActionCommand().equals("knopDrinkenMin")) {
+            if(drinken > 0) {
+                drinken--;
+                prijs -= prijsDrinken;
+            }
+            tekstDrinkenHoeveelheid.setTextContent(Integer.toString(drinken), HVisible.NORMAL_STATE);
+        }
+        if(arg0.getActionCommand().equals("knopDrinkenPlus")) {
+            drinken++;
+            prijs += prijsDrinken;
+            tekstDrinkenHoeveelheid.setTextContent(Integer.toString(drinken), HVisible.NORMAL_STATE);
+        }
         if(arg0.getActionCommand().equals("knop4")) { //kuis
-            scene.remove(tekst4);
-            scene.remove(teksteten1);
-            scene.remove(knopeten1);
-            scene.remove(knopeten2);
-            scene.remove(tekst5);
-            scene.remove(teksteten2);
-            scene.remove(knopeten3);
-            scene.remove(knopeten4);
+            scene.remove(tekstEten);
+            scene.remove(tekstEtenHoeveelheid);
+            scene.remove(knopEtenMin);
+            scene.remove(knopEtenPlus);
+            scene.remove(tekstDrinken);
+            scene.remove(tekstDrinkenHoeveelheid);
+            scene.remove(knopDrinkenMin);
+            scene.remove(knopDrinkenPlus);
             scene.remove(knopbestel);
             scene.remove(tekstbestel);
             
@@ -309,7 +341,48 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
             knopkuis1.requestFocus();
             scene.repaint();
         }
-        
+        if(arg0.getActionCommand().equals("knopkuis1")) {
+            scene.remove(knopkuis1);
+            scene.remove(knopkuis2);
+            scene.remove(knopkuis3);
+            
+            tekstbestel.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstbestel.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstbestel.setForeground(Color.BLACK);
+            tekstbestel.setTextContent("Bestelling geplaatst." + "\n We zijn zo bij u met \n schone lakens en handdoeken.", HVisible.NORMAL_STATE);
+            scene.add(tekstbestel);
+            
+            knop1.requestFocus();
+            scene.repaint();
+        }
+        if(arg0.getActionCommand().equals("knopkuis2")) {
+            scene.remove(knopkuis1);
+            scene.remove(knopkuis2);
+            scene.remove(knopkuis3);
+            
+            tekstbestel.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstbestel.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstbestel.setForeground(Color.BLACK);
+            tekstbestel.setTextContent("Bestelling geplaatst." + "\n We zijn zo bij u voor \n een minimale kuis", HVisible.NORMAL_STATE);
+            scene.add(tekstbestel);
+            
+            knop1.requestFocus();
+            scene.repaint();
+        }
+        if(arg0.getActionCommand().equals("knopkuis3")) {
+            scene.remove(knopkuis1);
+            scene.remove(knopkuis2);
+            scene.remove(knopkuis3);
+            
+            tekstbestel.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            tekstbestel.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstbestel.setForeground(Color.BLACK);
+            tekstbestel.setTextContent("Bestelling geplaatst." + "\n We zijn zo bij u voor \n een volledige kuis.", HVisible.NORMAL_STATE);
+            scene.add(tekstbestel);
+            
+            knop1.requestFocus();
+            scene.repaint();
+        }
         if(arg0.getActionCommand().equals("knopterug")) { //terugknop
             knop1.setBackgroundMode(HVisible.BACKGROUND_FILL);
             knop1.setBackground(Color.BLUE);
@@ -335,23 +408,22 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
             scene.repaint();
         }
         
-        if(arg0.getActionCommand().equals("knopeten1")) {
-            
-        }
         
         if(arg0.getActionCommand().equals("knopbestel")) {
-            scene.remove(tekst4);
-            scene.remove(teksteten1);
-            scene.remove(knopeten1);
-            scene.remove(knopeten2);
-            scene.remove(tekst5);
-            scene.remove(teksteten2);
-            scene.remove(knopeten3);
-            scene.remove(knopeten4);
+            scene.remove(tekstEten);
+            scene.remove(tekstEtenHoeveelheid);
+            scene.remove(knopEtenMin);
+            scene.remove(knopEtenPlus);
+            scene.remove(tekstDrinken);
+            scene.remove(tekstDrinkenHoeveelheid);
+            scene.remove(knopDrinkenMin);
+            scene.remove(knopDrinkenPlus);
             scene.remove(knopbestel);
             
             tekstbestel.setBackgroundMode(HVisible.BACKGROUND_FILL);
-            tekstbestel.setBackground(Color.GREEN);
+            tekstbestel.setBackground(new DVBColor(168, 234, 226, 255));
+            tekstbestel.setForeground(Color.BLACK);
+            tekstbestel.setTextContent("Bestelling geplaatst. \n totaal: € " + Double.toString(prijs) + "\n We zijn zo bij u.", HVisible.NORMAL_STATE);
             scene.add(tekstbestel);
             
             scene.repaint();
