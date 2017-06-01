@@ -32,10 +32,10 @@ public class HelloTVXlet implements Xlet, HActionListener, HBackgroundImageListe
     HTextButton knop3  = new HTextButton("Eten en drinken bestellen",50,290,300,50);
     HTextButton knop4  = new HTextButton("Bel kamermeid",50,360,300,50);
     HTextButton knopterug  = new HTextButton("Terug",50,500,100,50); //terugknop
-    
-    HStaticText tekst2 = new HStaticText("bla bla hotel info, regels en telefoonnummer...",50, 150, 620, 200);
-    
-    HStaticText tekst3 = new HStaticText("openingsuren van hotel zelf, zwembad, resaurant en casino?",50, 150, 620, 200);
+    //Hotel Info
+    HStaticText tekst2 = new HStaticText("Welkom bij Hotel Erdogan \n \n De meeste kanalen zijn vergrendeld, \n maar het nieuws is nog beschikbaar. \n \n Bij problemen neem contact met ons op 089/456 789",50, 150, 620, 250);
+    //Openingsuren
+    HStaticText tekst3 = new HStaticText("Om 23u sluiten we de voordeur. \n Om binnen te geraken moet je aanbellen. \n \n Het zwembad is open van 08:00 - 18:00. \n Ontbijt kan vanaf 08:00 tot 11:00.",50, 150, 620, 200);
     
     HStaticText tekst4      = new HStaticText("eten €2,30",450, 150, 190, 50);
     HStaticText teksteten1  = new HStaticText("0",520, 220, 50, 50);
